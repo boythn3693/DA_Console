@@ -7,7 +7,7 @@ package tcpserver;
 
 /**
  *
- * @author ntdat
+ * @author dongluu
  */
 public class ConnectList {
     protected String _ip;

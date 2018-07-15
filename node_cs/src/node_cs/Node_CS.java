@@ -19,7 +19,7 @@ import java.net.Socket;
 
 /**
  *
- * @author ntdat
+ * @author boythn3693
  */
 public class Node_CS {
 
@@ -133,6 +133,7 @@ public class Node_CS {
                 while (true) {
                     MyThread myThread = new MyThread();
                     myThread.start();
+                    
                     // nhận kết nối từ client
                     DatagramPacket pk = new DatagramPacket(receivedData, receivedData.length);
                     ds.receive(pk);

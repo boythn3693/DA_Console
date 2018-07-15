@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author ntdat
+ * @author dongluu
  */
 public class TCPServer {
     //Gán Port cố định cho Server
@@ -26,7 +26,6 @@ public class TCPServer {
     
     public static void main(String argv[]) throws Exception {
           ArrayList<ConnectList> _connectList = new ArrayList<>();
-          int i =0;
           try {
             ServerSocket serverSocket = new ServerSocket(_serverPort);
             System.out.println("Đang chờ kết nối từ Client hoặc Node...");
@@ -47,20 +46,19 @@ public class TCPServer {
                 {
                     String _port = _str.substring(4,9); // cut get _port //Nod,2000, tenfile1[,tenfile2[,...]]
                     _str = _str.substring(10); // remove dấu phẩy
-                    System.out.println(_str);
+                    //System.out.println(_str);
                     List<String> items = Arrays.asList(_str.split(","));
                     Collections.sort(items, new Comparator<String>() {
                         @Override
                         public int compare(String str1, String str2)
                         {
-                            return  str1.trim().compareTo(str2.trim());
+                            return str1.trim().compareTo(str2.trim());
                         }
                     });
                     _str = String.join(",", items);
-                    int f_loc = IPAddr.lastIndexOf("\\");
-                    int l_loc = IPAddr.lastIndexOf(":");
+                    int f_loc = IPAddr.lastIndexOf("\\"); //Vị trí đầu
+                    int l_loc = IPAddr.lastIndexOf(":"); //Vị trí cuối
                     IPAddr = IPAddr.substring(f_loc+2, l_loc);
-                    
                     
                     boolean CheckDupIP = false;//Ip on list
                     for(ConnectList _listKN:_connectList)
@@ -99,8 +97,6 @@ public class TCPServer {
                         }
                     }
                     
-                    i++;
-                    
                     if(_str.equals("Disconnect")){
                         _str = "Node đã ngắt kết nối với Server\n";
                     } else {
@@ -110,7 +106,7 @@ public class TCPServer {
                     for(ConnectList _listKN : _connectList)
                     {
                         System.out.println("Địa chỉ IP của Node: "+_listKN._ip+" , Port: "+ _listKN._port);
-                        System.out.println("Tên File của Node: "+_listKN._fileName+"\n");                       
+                        System.out.println("Danh sách File của Node: "+_listKN._fileName+"\n");                       
                     }                   
                 }
                 else  // từ Client
@@ -119,7 +115,7 @@ public class TCPServer {
                     for(ConnectList _listKN : _connectList)
                     {
                         System.out.println("Địa chỉ IP Node: "+_listKN._ip+" , Port: "+ _listKN._port);
-                        System.out.println("Tên File của Node: "+_listKN._fileName+"\n");
+                        System.out.println("Danh sách File của Node: "+_listKN._fileName+"\n");
                         if(_str == "")
                         {
                              _str = "IP Node: "+_listKN._ip+ " , Port: " +_listKN._port+"\n";

@@ -16,9 +16,11 @@ import static node_cs.Node_CS._serverPort;
 
 /**
  *
- * @author MitsuyoRai
+ * @author boythn3693
  */
 public class MyThread extends Thread {
+    public static boolean _isClose = false;
+    
     @Override
     public void run(){
         try {
@@ -38,9 +40,8 @@ public class MyThread extends Thread {
                 is.close();
                 os.close();
                 sk.close();
-                
-                //System.exit(1);
                 System.out.println("==> Node is stopped");
+                System.exit(0);
             }            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());

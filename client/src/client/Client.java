@@ -23,6 +23,18 @@ public class Client {
     public static final int _serverPort = 9000;
     public static final String _serverIP = "127.1.0.1";
 
+    public static void setTimeout(Runnable runnable, int delay){
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+                runnable.run();
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
+    }
+    
     public static void main(String argv[]) throws Exception {
         //Setup kết nối đến Server và Node
         Scanner scanner = new Scanner(System.in);
@@ -77,6 +89,9 @@ public class Client {
                         DatagramPacket pk = new DatagramPacket(sendData, sendData.length, iaddr, _portNode);
                         ds.send(pk);
                         System.out.println("Gửi yêu Node cầu truyền tập tin... ");
+                        setTimeout(() -> {
+                            System.out.println("Node không phản hồi, có thể đã tắt kết nối!");
+                        }, 10000);
                         //Nhận thông tin xác nhận từ Node khi đã nhận dc file
                         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                         ds.receive(receivePacket);
