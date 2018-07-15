@@ -10,7 +10,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
-import static node_cs.Node_CS._Paths;
 import static node_cs.Node_CS._nodePort;
 import static node_cs.Node_CS._serverIP;
 import static node_cs.Node_CS._serverPort;
