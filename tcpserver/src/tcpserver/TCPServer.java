@@ -36,7 +36,8 @@ public class TCPServer {
                 String _str = is.readUTF();
                 // cut chuoi string thanh IP
                 String IPAddr = String.valueOf(socket.getRemoteSocketAddress()); 
-                String Check_If_Node = _str.substring(0,3);      
+                String Check_If_Node = _str.substring(0,3);   
+                System.out.println("--------------------------------------------");
                 System.out.println("Danh sách file từ Node:");
                 if(Check_If_Node.equals("Nod")) // ket noi tu Node
                 {
@@ -123,7 +124,9 @@ public class TCPServer {
                 os.writeUTF(_str);
                 os.flush();
                 os.close();
-                is.close();               
+                is.close();
+                
+                System.out.println("--------------------------------------------");
             }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());

@@ -25,7 +25,7 @@ public class MyThread extends Thread {
             Scanner sc = new Scanner(System.in);
             char ch = sc.next().charAt(0);
             if(ch=='0'){
-                String _str = "Nod," + _nodePort + ", Disconnect"; // Node or Client 
+                String _str = "Nod," + _nodePort + ", Disconnect"; // Node 
                 Socket sk = new Socket(_serverIP, _serverPort);
                 DataOutputStream os = new DataOutputStream(sk.getOutputStream());
                 DataInputStream is = new DataInputStream(sk.getInputStream());

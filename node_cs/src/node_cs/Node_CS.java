@@ -24,14 +24,34 @@ import java.net.Socket;
 public class Node_CS {
 
     //F:\\HocTap\\HCDH\\HK2\\MMTNC\\MMT\\Node_Test\\Node + 1_2_3
-    public static final String _Paths = "F:\\HocTap\\HCDH\\HK2\\MMTNC\\MMT\\Node_Test\\Node2";
+    public static String _Paths = "F:\\HocTap\\HCDH\\HK2\\MMTNC\\MMT\\Node_Test\\Node2";
     public static final int _serverPort = 9000;
     //Đổi port mỗi khi thay node
+    public static int _nodePort = 2000;
     //public static final int _nodePort = 2000; // Port node 1
-    public static final int _nodePort = 3000; // Port node 2
+    //public static final int _nodePort = 3000; // Port node 2
     //public static final int _nodePort = 4000; // Port node 3
     public static final String _serverIP = "127.1.0.1";
     public static final String _nodeIP = "127.1.0.1";
+    
+    private static String[] getListFile() {
+        File dir = new File(_Paths);
+        if (dir.exists()) {
+            String[] paths = dir.list();
+            return paths;
+        }
+        return null;
+    }
+
+    private static String[] getListFile(String _path) {
+        File dir = new File(_path);
+        if (dir.exists()) {
+            String[] paths = dir.list();
+            return paths;
+        }
+        return null;
+    }
+    
     //START UDP
 
     //END UDP
@@ -48,21 +68,21 @@ public class Node_CS {
         System.out.print("Nhập: ");
         ch = sc.next().charAt(0);
         String[] paths = null;
-        boolean connect = true;
+        
         do {
             switch (ch) {
                 case '1':
                     paths = getListFile(); //Lấy danh sách file trên Node
                     break;
                 case '2':
-                    System.out.print("Nhập: ");
-                    String _path;
+                    System.out.print("Tạo Port cho Node: ");
                     sc.nextLine();
-                    _path = sc.nextLine();
-                    paths = getListFile(_path);
-                    break;
-                case '0':
-                    connect = false;
+                    _nodePort =  Integer.parseInt(sc.nextLine());
+                    System.out.print("Nhập Đường dẫn đến thư mục chứa file: ");
+                    //sc.nextLine();
+                    _Paths = sc.nextLine();
+                    paths = getListFile(_Paths);
+                    System.out.println(_nodePort+ "-" + _Paths);
                     break;
                 default:
                     System.out.println("Vui lòng nhập lại!");
@@ -138,23 +158,5 @@ public class Node_CS {
                 System.out.println(ex.getMessage());
             }
         }
-    }
-
-    private static String[] getListFile() {
-        File dir = new File(_Paths);
-        if (dir.exists()) {
-            String[] paths = dir.list();
-            return paths;
-        }
-        return null;
-    }
-
-    private static String[] getListFile(String _path) {
-        File dir = new File(_path);
-        if (dir.exists()) {
-            String[] paths = dir.list();
-            return paths;
-        }
-        return null;
     }
 }
