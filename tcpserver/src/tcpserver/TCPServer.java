@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  *
@@ -43,6 +47,16 @@ public class TCPServer {
                 {
                     String _port = _str.substring(4,9); // cut get _port //Nod,2000, tenfile1[,tenfile2[,...]]
                     _str = _str.substring(10); // remove dấu phẩy
+                    System.out.println(_str);
+                    List<String> items = Arrays.asList(_str.split(","));
+                    Collections.sort(items, new Comparator<String>() {
+                        @Override
+                        public int compare(String str1, String str2)
+                        {
+                            return  str1.trim().compareTo(str2.trim());
+                        }
+                    });
+                    _str = String.join(",", items);
                     int f_loc = IPAddr.lastIndexOf("\\");
                     int l_loc = IPAddr.lastIndexOf(":");
                     IPAddr = IPAddr.substring(f_loc+2, l_loc);
