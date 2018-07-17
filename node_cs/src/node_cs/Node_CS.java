@@ -125,15 +125,16 @@ public class Node_CS {
 
             // Mở kết nối UDP chờ Client kết nối đến
             System.out.println("Đang chờ Client kết nối đến, Nhấn phím 0 để thoát!");
-
+            
+            //Tạo thread mới để nhận lệnh nếu Disconnect với Server
+            MyThread myThread = new MyThread();
+            myThread.start();
+                    
             try {
                 DatagramSocket ds = new DatagramSocket(_nodePort);
                 byte[] receivedData = new byte[1024];
                 byte[] dataSend = new byte[1024];
-                while (true) {
-                    MyThread myThread = new MyThread();
-                    myThread.start();
-                    
+                while (true) {                    
                     // nhận kết nối từ client
                     DatagramPacket pk = new DatagramPacket(receivedData, receivedData.length);
                     ds.receive(pk);
@@ -153,7 +154,7 @@ public class Node_CS {
                     int port = pk.getPort();
                     DatagramPacket sendPacket = new DatagramPacket(dataSend, dataSend.length, inetAddress, port);
                     ds.send(sendPacket);
-                    System.out.println("Đã gửi tập tin " + _fileName + " đến cho Client!");
+                    System.out.println("Tập tin " + _fileName + " đã được gửi về cho Client!");
                 }
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
